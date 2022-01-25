@@ -1,0 +1,15 @@
+<%- include('partials/header')%>
+<body class="d-flex flex-column vh-100">
+    <%- include('partials/navbar')%>
+    <main class="container m-auto">
+        <%- include('partials/flash')%>
+        <div class="cover-container d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="alert alert-danger" role="alert">
+                    <h3 class="alert-heading"><%=message%> - <%=statusCode%></h3>
+                    <!-- handling errors in prod vs development differs. atlas. -->
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include('partials/footer')%>

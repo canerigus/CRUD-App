@@ -1,0 +1,57 @@
+<%- include('partials/header')%>
+<body class="d-flex flex-column vh-100">
+  <%- include('partials/navbar')%>
+  <main class="container m-auto">
+    <%- include('partials/flash')%>
+    <div class="container d-flex justify-content-center align-items-center mb-3">
+      <div class="row">
+        <div class="card-body">
+          <h5 class="card-title">Current User</h5>
+          <% if(currentUser.id === 1) {%>
+            <h6 class="card-title">You are the <%=currentUser.id%>st user!</h6>
+            <% } else if (currentUser.id === 2){%>
+              <h6 class="card-title">You are the <%=currentUser.id%>nd user!</h6>
+            <% } else {  %>
+              <h6 class="card-title">You are the <%=currentUser.id%>th user!</h6>
+            <% } %>
+          <ul>
+            <li><b> Name: </b> <%= currentUser.name %></li>
+            <li><b> Surname: </b> <%= currentUser.surname %></li>
+            <li><b> Username: </b> <%= currentUser.username %></li>
+            <li><b> Session ID: </b> <%= session %></li>
+            <li><b> Token ID: </b> <%= token %></li>
+            <li><b> Token Initiation: </b> <%= iatDate %></li>
+            <li><b> Token Expiration: </b> <%= expDate %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container d-flex justify-content-center align-items-center mb-3">
+      <h5 class="card-title">Other Users</h5>
+    </div>
+
+    <% for(let user of otherUsers) { %>
+    <% if (user.username !== currentUser.username) { %>
+    <div class="container d-flex justify-content-center align-items-center mb-3">
+      <div class="row-others">
+        <div class="card-body">  
+          <% if(user.id === 1) {%>
+            <h6 class="card-title"><%=user.id%>st user!</h6>
+            <% } else if (user.id === 2){%>
+              <h6 class="card-title"> <%=user.id%>nd user!</h6>
+            <% } else {  %>
+              <h6 class="card-title"><%=user.id%>th user!</h6>
+            <% } %>        
+          <ul>
+            <li><b> Name: </b> <%= user.name %></li>
+            <li><b> Surname: </b> <%= user.surname %></li>
+            <li><b> Username: </b> <%= user.username %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <% } %> 
+    <% } %> 
+    
+  </main>
+  <%- include('partials/footer')%>

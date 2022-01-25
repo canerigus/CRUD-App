@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link rel="stylesheet" href="/profile.css">
+
+</head>
+
+<body class="d-flex flex-column vh-100">
+  <%- include('partials/navbar')%>
+  <main class="container m-auto main">
+    <%- include('partials/flash')%>
+    <div class="container d-flex justify-content-center align-items-center mb-3 mt-3">
+      <div class="row row-main">
+        <div class="col-6">
+          <div class="card-body" id="imgdiv">
+            <img class="card-img-top img"
+              src="https://res.cloudinary.com/coderigus/image/upload/v1641231538/samples/transformations-builder-sample.jpg"
+              alt="Card image cap">
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Username</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <%= currentUser.username %>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Full Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <%= currentUser.name %> <%= currentUser.surname %>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <%= currentUser.email %>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Occupation</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <% if(currentUser.occupation){%>
+                  <%= currentUser.occupation %>
+                <%} else {%>
+                  <span class="text-secondary" style="font-style: italic;">Occupation..</span>
+                <%}%>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">City</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <% if(currentUser.city){%>
+                  <%= currentUser.city %>
+                <%} else {%>
+                  <span class="text-secondary" style="font-style: italic;">City..</span>
+                <%}%>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <a href="/profile/<%=currentUser.id%>/edit" class="btn btn-info">Edit</a>
+            <form class="d-inline mr-1 validate" action="/profile/<%=currentUser.id%>?_method=DELETE" method="POST">
+              <button class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+        <div class="col-6" id="profilrightcolumn">
+          <h5 style="text-align: center;margin-top: 1rem;">Session Info</h5>
+          <div class="row mt-3">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Session ID</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <%= session %>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Token Info</h6>
+            </div>
+            <div class="col-sm-9 text-secondary token">
+              <%= token %>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Token Initiation</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <%= iatDate %>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-3">
+              <h6 class="mb-0">Token Expiration</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+              <%= expDate %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+  <%- include('partials/footer')%>

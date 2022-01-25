@@ -1,0 +1,53 @@
+<%- include('partials/header')%>
+
+<body class="d-flex flex-column vh-100">
+    <%- include('partials/navbar')%>
+    <main class="container m-auto">
+        <%- include('partials/flash')%>
+        <div class="container col-6 d-flex justify-content-center align-items-center">
+            <div class="row">
+                <div class="card-body">
+                    <h5 class="card-title">Register</h5>
+                    <form action="/register" method="POST" class="validate" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Name</label>
+                            <input class="form-control" type="text" id="name" name="name" autofocus required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="surname">Surname</label>
+                            <input class="form-control" type="text" id="surname" name="surname" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="username">Username</label>
+                            <input class="form-control" type="text" id="username" name="username" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input class="form-control" type="text" id="email" name="email" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input class="form-control" type="password" id="password" name="password" required>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-block">Register</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include('partials/footer')%>

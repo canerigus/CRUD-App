@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link rel="stylesheet" href="/profile.css">
+
+</head>
+
+<body class="d-flex flex-column vh-100">
+  <%- include('partials/navbar')%>
+  <main class="container m-auto main">
+    <%- include('partials/flash')%>
+    <div class="container col-6 justify-content-center align-items-center mb-3 mt-3">
+      <form action="/profile/<%=currentUser.id%>?_method=PUT" method="POST" novalidate class="validate">
+        <div class="row-main">
+          <div class="card-body" id="imgdiv">
+            <img class="card-img-top img"
+              src="https://res.cloudinary.com/coderigus/image/upload/v1641231538/samples/transformations-builder-sample.jpg"
+              alt="Card image cap">
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Username</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input class="form-control" type="text" id="username" name="username" value="<%=currentUser.username%>"
+                  required>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input class="form-control" type="text" id="name" name="name" value="<%=currentUser.name%>" required>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Surname</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input class="form-control" type="text" id="surname" name="surname" value="<%=currentUser.surname%>"
+                  required>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input class="form-control" type="email" id="email" name="email" value="<%=currentUser.email%>"
+                  required>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Occupation</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input class="form-control" type="text" id="occupation" name="occupation"
+                  value="<%if(currentUser.occupation){%><%=currentUser.occupation%><%}%>">
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">City</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <input class="form-control" type="text" id="city" name="city"
+                  value="<%if(currentUser.city){%><%=currentUser.city%><%}%>">
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="mb-3" id="updatebutton">
+              <button class="btn btn-info">Update</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </main>
+  <%- include('partials/footer')%>

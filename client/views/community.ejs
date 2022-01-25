@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link rel="stylesheet" href="/community.css">
+
+</head>
+
+<body class="d-flex flex-column vh-100">
+  <%- include('partials/navbar')%>
+  <main>
+    <%- include('partials/flash')%>
+    <div class="container d-flex justify-content-center align-items-center mb-3 mt-3">
+      <div class="row">
+        <% for(let user of otherUsers) { %>
+        <div class="col-6 mt-2">
+          <div class="card-body" id="card-border">
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Username</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <%= user.username %>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Full Name</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <%= user.name %> <%= user.surname %>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <%= user.email %>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Occupation</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <% if(user.occupation){%>
+                  <%= user.occupation %>
+                <%} else {%>
+                  <span class="text-secondary" style="font-style: italic;">Occupation..</span>
+                <%}%>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <h6 class="mb-0">City</h6>
+              </div>
+              <div class="col-sm-9 text-secondary">
+                <% if(user.city){%>
+                  <%= user.city %>
+                <%} else {%>
+                  <span class="text-secondary" style="font-style: italic;">City..</span>
+                <%}%>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %> 
+        
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer')%>

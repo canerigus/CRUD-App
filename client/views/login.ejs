@@ -1,0 +1,32 @@
+<%- include('partials/header')%>
+<body class="d-flex flex-column vh-100">
+    <%- include('partials/navbar')%>
+    <main class="container m-auto">
+        <%- include('partials/flash')%>
+          <div class="container col-6 d-flex justify-content-center align-items-center">
+          <div class="row">
+                <div class="card-body">
+                        <h5 class="card-title">Login</h5>
+                        <form action="/login" method="POST" class="validate" novalidate>
+                            <div class="mb-3">
+                                <label class="form-label" for="username">Username</label>
+                                <input class="form-control" type="text" id="username" name="username" autofocus required>
+                              <div class="valid-feedback">
+                              Looks good!
+                              </div>
+                            </div>            
+                            <div class="mb-3">
+                                <label class="form-label" for="password">Password</label>
+                                <input class="form-control" type="password" id="password" name="password" required>
+                                <div class="valid-feedback">
+                                  Looks good!
+                                </div>
+                              </div>
+                            <button class="btn btn-success btn-block">Login</button>
+                        </form>
+                    </div>
+                  </div>
+              </div>
+          </div>
+    </main>
+    <%- include('partials/footer')%>

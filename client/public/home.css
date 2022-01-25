@@ -1,0 +1,39 @@
+body {
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)),
+  url("https://upload.wikimedia.org/wikipedia/commons/a/a0/Photo-pr-logo.jpg");
+  background-size: cover;
+  background-position: center;
+
+}
+
+.navbar-brand {
+  padding: 0.25rem 0;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.801);
+  margin-left: 1rem;
+  border-bottom: 0.25rem solid transparent;
+}
+
+.navbar-brand:hover{
+  color: rgb(255, 255, 255);
+}
+
+.nav-link {
+  padding: 0.25rem 0;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.801);
+  margin-left: 1rem;
+  border-bottom: 0.25rem solid transparent;
+}
+
+.nav-link:hover{
+  color: rgb(255, 255, 255);
+  border-bottom-color:rgb(255, 255, 255);
+}
+
+.nav-bar{
+  color: white;
+  border-bottom-color:white;
+
+}
