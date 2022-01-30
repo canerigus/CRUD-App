@@ -7,7 +7,7 @@
   <title>Auth</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
     integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-  <link rel="stylesheet" href="/profile.css">
+  <link rel="stylesheet" href="/edit.css">
 
 </head>
 
@@ -18,12 +18,7 @@
     <div class="container col-6 justify-content-center align-items-center mb-3 mt-3">
       <form action="/profile/<%=currentUser.id%>?_method=PUT" method="POST" novalidate class="validate">
         <div class="row-main">
-          <div class="card-body" id="imgdiv">
-            <img class="card-img-top img"
-              src="https://res.cloudinary.com/coderigus/image/upload/v1641231538/samples/transformations-builder-sample.jpg"
-              alt="Card image cap">
-          </div>
-          <div class="card-body">
+           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
                 <h6 class="mb-0">Username</h6>

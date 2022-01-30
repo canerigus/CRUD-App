@@ -6,6 +6,7 @@ import {getRepository,getManager} from "typeorm";
 import { User } from "../entity/User";
 import { validate } from "class-validator";
 
+
 //app use controller. available every req/res
 //The res.locals property is an object that contains response local variables scoped to the request and because of this, 
 //it is only available to the view(s) rendered during that request / response cyc
@@ -143,3 +144,61 @@ export const NotFound: RequestHandler = (req, res, next) => {
   next(new ExpressError('Page not Found', 404))
 }
 
+
+export const updateUserInfo: RequestHandler = async (req, res) => {
+	const id = req.params.id;
+	const { name, surname, email, occupation, city } = req.body;
+	const username: string = req.body.username;
+	const user = await getRepository(User).findOne(id);
+	if (user) {
+		const errors = await validate({ name, surname, username, email, occupation, city });
+		if (errors.length > 0) {
+			throw new ExpressError(`Validation failed!`, 401);
+		} else {
+		user.name = name;
+			user.surname = surname;
+			user.username = username;
+			user.email = email;
+			user.occupation = occupation;
+			user.city = city;
+			await getRepository(User)
+				.createQueryBuilder()
+				.update(User)
+				.set({
+					name: name,
+					surname: surname,
+					username: username,
+					email: email,
+					occupation: occupation,
+					city: city
+				})
+				.where('id = :id', { id: id })
+				.execute();
+			const updatedUser = await getRepository(User).findOne(id);
+			req.headers['username'] = updatedUser.username;
+		/* 	next(); */
+			res.status(200).redirect(`/profile/${updatedUser.id}`)
+		}
+	} else {
+		console.log('user ve id yok !');
+		res.status(401).redirect(`/profile/${id}`);
+	}
+};
+
+export const deleteUser: RequestHandler = async (req, res) => {
+	const loggedUsername = '' + req.headers['username'];
+	const loggedUser = await getRepository(User).findOne({ username: loggedUsername });
+	if (loggedUser) {
+		const id = loggedUser.id;
+		try {
+			await getRepository(User).createQueryBuilder().delete().from(User).where('id = :id', { id: id }).execute();
+			req.session.username = null;
+			res.clearCookie('token');
+			res.status(200).redirect('/');
+		} catch (error) {
+			console.log('delete Failed!');
+			console.log(error);
+			res.status(401).render(`home`);
+		}
+	}
+};

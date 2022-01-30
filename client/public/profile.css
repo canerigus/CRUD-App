@@ -1,17 +1,24 @@
 .row-main{
   max-width: 100%;
+
+}
+
+.leftcol{
   border: solid #343a40;
 }
 
-#profilrightcolumn{
-  border-left:solid #99a0a8;
-  margin: 0;
+.rightcol{
+  border: solid #343a40;
 }
 
-.img{
-  width: 200px;
-  height: 200px;
+.row{
+text-align: center;
+}
+
+.img-fluid{
   border-radius: 50%;
+  max-width: 200px;
+  max-height: 200px;
 }
 
 #imgdiv{

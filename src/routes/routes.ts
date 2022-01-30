@@ -1,8 +1,9 @@
 import * as controllers from "../controller/routes";
-import { requireLogin, authenticateToken, validateUser, updateUserInfo, deleteUser } from "../utils/middleware";
+import { requireLogin, authenticateToken, validateUser} from "../utils/middleware";
 import { Router } from 'express';
 
 const router = Router();
+
 
 //home page
 router.route('/')
@@ -23,12 +24,12 @@ router.route('/community')
 //profile routes
 router.route('/profile/:id')
   .get(requireLogin, authenticateToken, validateUser, controllers.renderProfile)
-  .put(requireLogin, authenticateToken, validateUser, updateUserInfo, controllers.renderProfile)
-  .delete(requireLogin, authenticateToken, validateUser, deleteUser, controllers.logout)
+  .put(requireLogin, authenticateToken, validateUser, controllers.updateUserInfo)
+  .delete(requireLogin, authenticateToken, validateUser, controllers.deleteUser)
 
 //edit profile
 router.route('/profile/:id/edit')
-  .get(authenticateToken, validateUser, controllers.renderEdit)
+  .get(requireLogin, authenticateToken, validateUser, controllers.renderEdit)
 
 //logout
 router.route('/logout')

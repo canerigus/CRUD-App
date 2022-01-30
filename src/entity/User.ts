@@ -30,4 +30,8 @@ export class User {
     @Column({nullable: true})
     city: string;
 
+    @Column({nullable: true, length: 250})
+    imageurl: string
+    imagefilename: string
+
 }
