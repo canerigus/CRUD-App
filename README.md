@@ -33,8 +33,13 @@ npm run dev
 
 ### .env
 .env file contains the following; Replace the information below accordingly. You should open a FREE cloudinary developer account for cloudinary variables.
+
 - ACCESS_TOKEN_SECRET=your_secret_here
 - PORT=your_port_number_here
+- DB_PORT=your_local_mysql_db_port_here
+- DB_NAME=your_local_mysql_db_name_here
+- DB_USERNAME=your_local_mysql_username_port_here
+- DB_PASSWORD=your_local_mysql_db_password_here
 - CLOUDINARY_CLOUD_NAME=your_cloudinary_name_here
 - CLOUDINARY_KEY=your_cloudinary_key_here
 - CLOUDINARY_SECRET=your_cloudinary_secret_key_here
