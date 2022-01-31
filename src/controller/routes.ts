@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { ExpressError } from "../utils/ErrorHandler";
 import * as bcrypt from 'bcrypt'
 import { generateAccessToken } from "../utils/middleware"
-import {getRepository,getManager} from "typeorm";
+import {getRepository} from "typeorm";
 import { User } from "../entity/User";
 import { validate } from "class-validator";
 
@@ -105,7 +105,7 @@ export const login: RequestHandler = async (req, res) => {
 //user get controller
 //redirect sends req.body info temporarily to /users get route
 export const renderProfile: RequestHandler = async (req, res) => {
-  //find the current user by token
+  //find the user by token
   const username = "" + req.headers['username']
   const iat: number = +req.headers.iat
   const exp: number = +req.headers.exp
@@ -117,14 +117,14 @@ export const renderProfile: RequestHandler = async (req, res) => {
   const expDate = new Date(exp * 1000).toLocaleString('tr-TR', { timeZone: 'Turkey' })
   //token initiation date
   const iatDate = new Date(iat * 1000).toLocaleString('tr-TR', { timeZone: 'Turkey' })
-  res.status(200).render('profile', { currentUser, session, token, expDate, iatDate })
+  res.status(200).render('profile', {id: currentUser.id, currentUser, session, token, expDate, iatDate})
 }
 
 
 export const renderEdit: RequestHandler = async (req, res) => {
   const username = "" + req.headers['username']
   const currentUser = await getRepository(User).findOne({ username: username });
-  res.status(200).render('edit', {currentUser})
+  res.status(200).render('edit', { id:currentUser.id, currentUser})
 }
 
 export const renderCommunity: RequestHandler = async (req, res) => {
@@ -144,18 +144,17 @@ export const NotFound: RequestHandler = (req, res, next) => {
   next(new ExpressError('Page not Found', 404))
 }
 
-
 export const updateUserInfo: RequestHandler = async (req, res) => {
 	const id = req.params.id;
 	const { name, surname, email, occupation, city } = req.body;
 	const username: string = req.body.username;
 	const user = await getRepository(User).findOne(id);
 	if (user) {
-		const errors = await validate({ name, surname, username, email, occupation, city });
-		if (errors.length > 0) {
+		const errorsUserInfo = await validate({ name, surname, username, email, occupation, city });
+		if (errorsUserInfo.length > 0) {
 			throw new ExpressError(`Validation failed!`, 401);
 		} else {
-		user.name = name;
+		  user.name = name;
 			user.surname = surname;
 			user.username = username;
 			user.email = email;
@@ -173,14 +172,35 @@ export const updateUserInfo: RequestHandler = async (req, res) => {
 					city: city
 				})
 				.where('id = :id', { id: id })
-				.execute();
-			const updatedUser = await getRepository(User).findOne(id);
-			req.headers['username'] = updatedUser.username;
-		/* 	next(); */
+        .execute();
+      if (req.file) {
+        const { path, filename } = req.file
+        const imageurl = path;
+        const imagefilename = filename;
+        const errorsImage = await validate({ imageurl, imagefilename });
+        if (errorsImage.length > 0) {
+          throw new ExpressError(`Validation failed!`, 401);
+        }
+        await getRepository(User)
+				.createQueryBuilder()
+				.update(User)
+				.set({
+          imageurl: imageurl,
+          imagefilename: imagefilename
+				})
+				.where('id = :id', { id: id })
+        .execute();
+      }
+      const updatedUser = await getRepository(User).findOne(id);
+      //re-initialize jwt token
+      const updatedUserObjectForToken = { username: updatedUser.username }
+      const newToken = generateAccessToken(updatedUserObjectForToken)
+      //jwt token generated and sent to client as cookie.
+      res.cookie("token", newToken, { httpOnly: true, sameSite: "strict" });
 			res.status(200).redirect(`/profile/${updatedUser.id}`)
 		}
 	} else {
-		console.log('user ve id yok !');
+    req.flash('error', 'User or ID does not exist!')
 		res.status(401).redirect(`/profile/${id}`);
 	}
 };

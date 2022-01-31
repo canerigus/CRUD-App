@@ -3,11 +3,6 @@ import { RequestHandler } from 'express';
 import { ExpressError } from '../utils/ErrorHandler';
 import { getRepository } from 'typeorm';
 import { User } from '../entity/User';
-import { validate } from 'class-validator';
-
-/* export const uploadProfilePic: RequestHandler = (req, res, next) => {
-	upload.single('image')
-} */
 
 //generating JWT token function.
 export const generateAccessToken = (user: Object) => {
@@ -47,8 +42,9 @@ export const authenticateToken: RequestHandler = async (req, res, next) => {
 	}
 };
 
+
 export const validateUser: RequestHandler = async (req, res, next) => {
-	const loggedUsername = '' + req.headers['username'];
+	const loggedUsername : string = ""+req.headers['username'];
 	const loggedUser = await getRepository(User).findOne({ username: loggedUsername });
 	try {
 		const userid = req.params.id
@@ -56,13 +52,12 @@ export const validateUser: RequestHandler = async (req, res, next) => {
 		if (user.id === loggedUser.id) {
 			next();
 		} else {
-			req.flash('error', 'User not validated!! aaaaaaaaaa');
-			res.status(401).redirect(`/login`);
+			req.flash('error', 'User not validated!! You cant view that page!');
+			res.status(401).redirect(`/profile/${loggedUser.id}`);
 		}
 	} catch (error) {
-		console.log('User Not Validate dsfsdfdsfdsfds' + error);
-		res.status(401).redirect(`/login`);
+		req.flash('error', 'User not validated!! You cant view that page! - validateUser-Catch. User doesnt exist!');
+		res.status(401).redirect(`/profile/${loggedUser.id}`);
 	}
 };
-
 

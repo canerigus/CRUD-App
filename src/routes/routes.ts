@@ -1,9 +1,9 @@
 import * as controllers from "../controller/routes";
-import { requireLogin, authenticateToken, validateUser} from "../utils/middleware";
+import { requireLogin, authenticateToken, validateUser } from "../utils/middleware";
 import { Router } from 'express';
+import { upload } from "../config/cloudinary";
 
 const router = Router();
-
 
 //home page
 router.route('/')
@@ -23,8 +23,8 @@ router.route('/community')
 
 //profile routes
 router.route('/profile/:id')
+  .put(upload.single('image'),requireLogin, authenticateToken, validateUser, controllers.updateUserInfo)
   .get(requireLogin, authenticateToken, validateUser, controllers.renderProfile)
-  .put(requireLogin, authenticateToken, validateUser, controllers.updateUserInfo)
   .delete(requireLogin, authenticateToken, validateUser, controllers.deleteUser)
 
 //edit profile

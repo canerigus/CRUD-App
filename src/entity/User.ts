@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
 import {Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max} from "class-validator";
 
 //create entity for mysql database.
 @Entity()
-export class User {
+export class User{
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -30,8 +30,9 @@ export class User {
     @Column({nullable: true})
     city: string;
 
-    @Column({nullable: true, length: 250})
+    @Column({length: 250, default: process.env.CLOUDINARY_DEFAULT_PROFILE_PIC})
     imageurl: string
+    @Column({nullable: true, length: 250})
     imagefilename: string
 
 }
