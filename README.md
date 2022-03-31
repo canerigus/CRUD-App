@@ -1,4 +1,4 @@
-# Typescript-Authentication Demo With JWT & Session 
+# Typescript-Authentication Demo CRUD App With JWT & Session & Cloudinary API
 
 ## Description
 This project is a CRUD APP with basic authentication demo using JWT and image uploads with cloudinary API. You can register, login, CRUD your profile and see other community members. At first a default profile pic is given to every user. Every user then can upload a profile pic and change it anytime as well as their information.
